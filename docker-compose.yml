@@ -5,6 +5,11 @@ services:
   web:
     build: code
     command: python manage.py runserver 0.0.0.0:8000
+    environment:
+      MYSQL_DATABASE: "${MYSQL_DATABASE}"
+      MYSQL_USER: "${MYSQL_USER}"
+      MYSQL_PASSWORD: "${MYSQL_PASSWORD}"
+      DJANGO_SECRET: "${DJANGO_SECRET}"
     restart: 'always'
     volumes:
       - ./code:/code
