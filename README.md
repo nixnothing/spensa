@@ -1,6 +1,6 @@
 # spensa
 
-Dockerized Web Application Stack (MDRN):
+Dockerized Web Application Stack:
 - Nginx Web Server
 - React JS (frontend)(wip)
 - Django (backend)
