@@ -1,0 +1,5 @@
+[client]
+database = whse_data
+user = djangouser
+password = blah
+default-character-set = utf8
