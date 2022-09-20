@@ -1,0 +1,7 @@
+.env
+code/spensa/settings.py
+code/spensa/__pycache__/settings.cpython-310.pyc
+code/spensa/__pycache__/settings.cpython-310.py
+*.pyc
+code/spensa/__pycache__
+code/db/my.cnf
