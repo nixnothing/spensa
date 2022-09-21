@@ -24,7 +24,7 @@ services:
       - mariadb
 
   nginx:
-    image: nginx:latest
+    build: frontend
     container_name: nginx
     restart: 'always'
     ports:
@@ -42,7 +42,7 @@ services:
     image: "mariadb:${MARIADB_VERSION}"
     restart: 'always'
     volumes:
-      - "/var/lib/mysql/data:${MARIADB_DATA_DIR}"
+      - "mysql-volume:/var/lib/mysql"
       - "/var/lib/mysql/logs:${MARIADB_LOG_DIR}"
       - /var/docker/mariadb/conf:/etc/mysql
     environment:
@@ -52,3 +52,5 @@ services:
       MYSQL_PASSWORD: "${MYSQL_PASSWORD}"
     expose:
       - 3306
+volumes:
+  mysql-volume:
