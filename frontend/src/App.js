@@ -76,21 +76,21 @@ function App() {
           type="text"
           name="address"
           required="required"
-          placeholder="Enter a name..."
+          placeholder="Enter an address..."
           onChange={handleAddFormChange}
         />
         <input
           type="text"
           name="phoneNumber"
           required="required"
-          placeholder="Enter a name..."
+          placeholder="Enter a phone #..."
           onChange={handleAddFormChange}
         />
         <input
           type="text"
           name="email"
           required="required"
-          placeholder="Enter a name..."
+          placeholder="Enter an email..."
           onChange={handleAddFormChange}
         />
         <button type="submit">Add Item</button>
