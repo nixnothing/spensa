@@ -4,3 +4,4 @@ code/spensa/__pycache__/settings.cpython-310.py
 *.pyc
 code/spensa/__pycache__
 code/db/my.cnf
+frontend/src/mock.data.txt
