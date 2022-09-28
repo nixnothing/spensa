@@ -36,14 +36,42 @@ function App() {
       fullName: addFormData.fullName,
       address: addFormData.address,
       phoneNumber: addFormData.phoneNumber,
-      email: addFormData.email,                  
+      email: addFormData.email,
     };
 
-    const newContacts = [...contacts, newContact];
-    setContacts(newContacts);
+    const myHeaders = new Headers();
+    myHeaders.append('Content-Type', 'application/json');
+
+    const request = new Request('http://localhost:8080/api/todos/', {method: 'POST', headers:myHeaders, body: JSON.stringify(newContact)});
+
+    // componentDidMount() {
+      fetch(request)
+        .then(response => {
+          if (response.status > 400) {
+            return this.setState(() => {
+              return { placeholder: "Something went wrong!" };
+            });
+          }
+          return response.json();
+        })
+        .then(data => {
+          this.setState(() => {
+            return {
+              data,
+              loaded: true
+            };
+          });
+        });
+    // }
+
+    // fetch(request)
+      //   .then((response) => response.json())
+      //   .then((obj) => {
+      //     console.log(obj);
+      // });
+    // const newContacts = [...contacts, newContact];
+    // setContacts(newContacts);
   };
-
-
 
   return (
     <div className="app-container">

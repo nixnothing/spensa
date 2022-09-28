@@ -5,3 +5,5 @@ code/spensa/__pycache__/settings.cpython-310.py
 code/spensa/__pycache__
 code/db/my.cnf
 frontend/src/mock.data.txt
+code/todo/migrations/0001_initial.py
+code/todo/migrations/__init__.py
