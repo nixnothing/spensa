@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { nanoid } from 'nanoid';
-import logo from './logo.svg';
+//import logo from './logo.svg';
 import './App.css';
 import ReadOnlyRow from "./components/ReadOnlyRow";
 import data from "./mock.data.json";
@@ -28,11 +28,34 @@ function App() {
     setAddFormData(newFormData);
   }
 
+  const baseurl = "http://localhost:8080";
+
+  const refreshAllData = () => {
+    fetch(baseurl + "/api/object/")
+      .then(response => {
+        if (response.status === 200) {
+          return response.json();
+        } else {
+          console.log(response);
+        }
+      })
+      .then(data => {
+        setContacts(data);
+      })
+      .catch(err => {
+        console.log(err)
+        alert("unknown failure while refreshing");
+      })
+  };
+
+  useEffect(() => {
+    //refreshAllData();
+  });
+
   const handleAddFormSubmit = (event) => {
     event.preventDefault();
 
     const newContact = {
-      id: nanoid(),
       fullName: addFormData.fullName,
       address: addFormData.address,
       phoneNumber: addFormData.phoneNumber,
@@ -42,35 +65,26 @@ function App() {
     const myHeaders = new Headers();
     myHeaders.append('Content-Type', 'application/json');
 
-    const request = new Request('http://localhost:8080/api/object/', {method: 'POST', headers:myHeaders, body: JSON.stringify(newContact)});
+    const request = new Request(baseurl + '/api/object/', {method: 'POST', headers:myHeaders, body: JSON.stringify(newContact)});
 
-    // componentDidMount() {
-      fetch(request)
-        .then(response => {
-          if (response.status > 400) {
-            return this.setState(() => {
-              return { placeholder: "Something went wrong!" };
-            });
-          }
-          return response.json();
-        })
-        .then(data => {
-          this.setState(() => {
-            return {
-              data,
-              loaded: true
-            };
+    fetch(request)
+      .then(response => {
+        if (response.status > 400) {
+          return this.setState(() => {
+            return { placeholder: "Something went wrong!" };
           });
-        });
-    // }
-
-    // fetch(request)
-      //   .then((response) => response.json())
-      //   .then((obj) => {
-      //     console.log(obj);
-      // });
-    // const newContacts = [...contacts, newContact];
-    // setContacts(newContacts);
+        }
+        return response.json();
+      })
+      .then(data => {
+        console.log(data);
+        const newContacts = [...contacts, data];
+        setContacts(newContacts);
+        setAddFormData({});
+      })
+      .catch(err => {
+        alert("failed to add object");
+      });
   };
 
   return (
@@ -78,6 +92,7 @@ function App() {
       <table>
         <thead>
           <tr>
+            <th>id</th>
             <th>Name</th>
             <th>Address</th>
             <th>Phone Number</th>
@@ -90,8 +105,9 @@ function App() {
           ))}
         </tbody>
       </table>
-      
+
       <h2>Add Item info</h2>
+      <button type="button" onClick={refreshAllData}>refresh</button>
       <form onSubmit={handleAddFormSubmit}>
         <input
           type="text"
