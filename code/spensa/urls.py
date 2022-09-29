@@ -19,7 +19,7 @@ from rest_framework import routers
 from todo import views
 
 router = routers.DefaultRouter()
-router.register(r'object', views.ObjectView)
+router.register(r'object', views.ObjectView, 'todo')
 
 urlpatterns = [
     path('polls/', include('polls.urls')),
