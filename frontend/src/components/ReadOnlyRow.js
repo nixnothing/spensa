@@ -1,10 +1,10 @@
 import React from "react";
 
-const ReadOnlyRow = ({ contact }) => {
+const ReadOnlyRow = ({ contact, deleteContact }) => {
     return (
         <tr>
           <td>
-            {contact.id}
+            {contact.id}<button onClick={deleteContact}>delete</button>
           </td>
           <td>{contact.fullName}</td>
           <td>{contact.address}</td>

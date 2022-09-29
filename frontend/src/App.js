@@ -13,7 +13,7 @@ function App() {
     fullName: '',
     address: '',
     phoneNumber: '',
-    email: ''
+    email: '',
   })
 
   const handleAddFormChange = (event) => {
@@ -29,6 +29,28 @@ function App() {
   }
 
   const baseurl = "http://localhost:8080";
+
+  const deleteRow = id => {
+    const request = new Request(baseurl + '/api/object/' + id + '/', {method: 'DELETE' }); 
+    fetch(request)
+      .then(response => {
+        console.log(response);
+      })  
+  };  
+
+  const updateRow = data => {
+    const myHeaders = new Headers();
+    myHeaders.append('Content-Type', 'application/json');
+    const request = new Request(baseurl + '/api/object/' + data.id + '/', {
+      method: 'PUT',
+      headers: myHeaders,
+      body: JSON.stringify(data)
+    }); 
+    fetch(request)
+      .then(response => {
+        console.log(response);
+      })  
+  }; 
 
   const refreshAllData = () => {
     fetch(baseurl + "/api/object/")
@@ -101,7 +123,7 @@ function App() {
         </thead>
         <tbody>
           {contacts.map((contact)=> (
-            <ReadOnlyRow contact={contact}/>
+            <ReadOnlyRow contact={contact} deleteContact={() => deleteRow(contact.id)}/>
           ))}
         </tbody>
       </table>
