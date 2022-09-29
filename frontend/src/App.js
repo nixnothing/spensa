@@ -3,12 +3,10 @@ import { nanoid } from 'nanoid';
 //import logo from './logo.svg';
 import './App.css';
 import ReadOnlyRow from "./components/ReadOnlyRow";
-import data from "./mock.data.json";
-// import data from DB
 
 function App() {
 
-  const [contacts, setContacts] = useState(data);
+  const [contacts, setContacts] = useState([]);
   const [addFormData, setAddFormData] = useState({
     fullName: '',
     address: '',
