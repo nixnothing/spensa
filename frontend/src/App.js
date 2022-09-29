@@ -42,7 +42,7 @@ function App() {
     const myHeaders = new Headers();
     myHeaders.append('Content-Type', 'application/json');
 
-    const request = new Request('http://localhost:8080/api/todos/', {method: 'POST', headers:myHeaders, body: JSON.stringify(newContact)});
+    const request = new Request('http://localhost:8080/api/object/', {method: 'POST', headers:myHeaders, body: JSON.stringify(newContact)});
 
     // componentDidMount() {
       fetch(request)
