@@ -25,7 +25,6 @@ services:
 
   nginx:
     build: frontend
-    container_name: nginx
     restart: 'always'
     ports:
       - 8080:80
@@ -35,8 +34,10 @@ services:
       - ./ssl:/ssl/
     depends_on:
       - web
+      - phpmyadmin
     links:
       - web
+      - phpmyadmin
 
   mariadb:
     image: "mariadb:${MARIADB_VERSION}"
@@ -52,5 +53,14 @@ services:
       MYSQL_PASSWORD: "${MYSQL_PASSWORD}"
     expose:
       - 3306
+
+  phpmyadmin:
+    image: phpmyadmin
+    restart: always
+    expose:
+      - 80
+    environment:
+      PMA_HOST: mariadb
+      PMA_ABSOLUTE_URI: /phpmyadmin
 volumes:
   mysql-volume:
